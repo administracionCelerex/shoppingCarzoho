@@ -1,0 +1,9 @@
+.contenedor-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.contenedor-products h2{
+    text-align: center;
+}
