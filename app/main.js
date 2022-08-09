@@ -18,5 +18,23 @@ const shopCar = {
 };
 
 const agregarCarrito = (item) => {
-  console.log("Hola");
+  console.log(item);
+  let quan = 0;
+  let priceAux = 0;
+
+  const numElem = shopCar.items.length;
+
+  if (numElem === 0) {
+    quan = 1;
+    priceAux = item.price;
+  }
+
+  const itemaux = {
+    id: item.id,
+    nameItem: item.name,
+    quantity: quan,
+    individualPrice: priceAux,
+  };
+  shopCar.items.push(itemaux);
+  console.log(shopCar.items);
 };
