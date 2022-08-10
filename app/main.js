@@ -36,40 +36,31 @@ const agregarCarrito = (item) => {
     individualPrice: priceAux,
   };
 
-  if (numElem === 0) {
+  
+  const itemObj = shopCar.items.find((item2) => {
+    return item2.id === item.id;
+  });
+
+  const itemObjIndex = shopCar.items.findIndex((item2) => item2.id === item.id);
+
+  if (!itemObj) {
+    //no hay nada en item object no existealgo previo
+
     quan = 1;
     priceAux = item.price;
     itemaux.quantity = quan;
     itemaux.individualPrice = priceAux;
     shopCar.items.push(itemaux);
   } else {
-    const itemObj = shopCar.items.find((item2) => {
-      return item2.id === item.id;
-    });
+    //si existe
+    let quantity2 = itemObj.quantity;
+    quantity2 += 1;
 
-    const itemObjIndex = shopCar.items.findIndex(
-      (item2) => item2.id === item.id
-    );
+    const replaceItem = { ...itemObj, quantity: quantity2 };
 
-    if (!itemObj) {
-      //no hay nada en item object no existealgo previo
+    shopCar.items[itemObjIndex] = replaceItem;
 
-      quan = 1;
-      priceAux = item.price;
-      itemaux.quantity = quan;
-      itemaux.individualPrice = priceAux;
-      shopCar.items.push(itemaux);
-    } else {
-      //si existe
-      let quantity2 = itemObj.quantity;
-      quantity2 += 1;
-
-      const replaceItem = { ...itemObj, quantity: quantity2 };
-
-      shopCar.items[itemObjIndex] = replaceItem;
-
-      //const individualPrice = itemObj.individualPrice;
-    }
+    //const individualPrice = itemObj.individualPrice;
   }
 
   shopCar.totalPrice = totalPrice;
