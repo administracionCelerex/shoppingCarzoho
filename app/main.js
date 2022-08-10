@@ -1,7 +1,7 @@
 const shopCar = {
   items: [
     /* {
-      id: "123",
+      id: "001",
       nameItem: "Celuar",
       quantity: 3,
       individualPrice: 300,
@@ -18,16 +18,16 @@ const shopCar = {
 };
 
 const agregarCarrito = (item) => {
-  console.log(item);
+  /*  console.log(item); */
   let quan = 0;
   let priceAux = 0;
 
   const numElem = shopCar.items.length;
+  let totalPrice = shopCar.totalItems;
+  let totalItems = shopCar.totalItems;
 
-  if (numElem === 0) {
-    quan = 1;
-    priceAux = item.price;
-  }
+  totalPrice += item.price;
+  totalItems += 1;
 
   const itemaux = {
     id: item.id,
@@ -35,6 +35,44 @@ const agregarCarrito = (item) => {
     quantity: quan,
     individualPrice: priceAux,
   };
-  shopCar.items.push(itemaux);
-  console.log(shopCar.items);
+
+  if (numElem === 0) {
+    quan = 1;
+    priceAux = item.price;
+    itemaux.quantity = quan;
+    itemaux.individualPrice = priceAux;
+    shopCar.items.push(itemaux);
+  } else {
+    const itemObj = shopCar.items.find((item2) => {
+      return item2.id === item.id;
+    });
+
+    const itemObjIndex = shopCar.items.findIndex(
+      (item2) => item2.id === item.id
+    );
+
+    if (!itemObj) {
+      //no hay nada en item object no existealgo previo
+
+      quan = 1;
+      priceAux = item.price;
+      itemaux.quantity = quan;
+      itemaux.individualPrice = priceAux;
+      shopCar.items.push(itemaux);
+    } else {
+      //si existe
+      let quantity2 = itemObj.quantity;
+      quantity2 += 1;
+
+      const replaceItem = { ...itemObj, quantity: quantity2 };
+
+      shopCar.items[itemObjIndex] = replaceItem;
+
+      //const individualPrice = itemObj.individualPrice;
+    }
+  }
+
+  shopCar.totalPrice = totalPrice;
+  shopCar.totalItems = totalItems;
+  console.log(shopCar);
 };
