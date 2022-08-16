@@ -1,3 +1,7 @@
+ZOHO.CREATOR.init().then(function (data) {
+  //Code goes here
+});
+
 const shopCar = {
   items: [
     /* {
@@ -73,14 +77,18 @@ const agregarCarrito = (item) => {
 };
 
 const enviarAlCRM = (listaProductos, precioTotal, totalItems) => {
-  const config = {
-    appName: "crm-dev2",
-    formName: "shoppincarzoho1",
+  console.log("Enviando al CRM ....");
+  formData = {
     data: {
       lista_productos: listaProductos,
       precio: precioTotal,
       total_Items: totalItems,
     },
+  };
+  const config = {
+    appName: "crm-dev-2",
+    formName: "shoppincarzoho1",
+    data: formData,
   };
   //add record API
   ZOHO.CREATOR.API.addRecord(config)
@@ -88,10 +96,12 @@ const enviarAlCRM = (listaProductos, precioTotal, totalItems) => {
       //callback block
       console.log(response);
       console.log("registro insertado");
+      Swal.fire("Good job!", "You clicked the button!", "success");
     })
     .catch((err) => {
       console.log(err);
     });
+  console.log("Ultima linea");
 };
 
 function finalizarCompra() {
